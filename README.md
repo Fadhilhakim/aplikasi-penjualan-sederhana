@@ -9,14 +9,15 @@ cp .env.example .env
 php artisan migrate
 php artisan key:generate
 ```
-install npm :
+install & npm :
 ``` bash
 npm install && npm run dev
 ```
+> selalu npm run dev setiap kali membuka project
 
 ## Tech Stack :
 - Laravel 11
-- TailwindCss
+- TailwindCss 
 - Alpine Js
 
 ## Preview :
