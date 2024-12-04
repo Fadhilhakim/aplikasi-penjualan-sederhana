@@ -1,12 +1,19 @@
 # Aplikasi Penjualan Sederhana
 
 ## Quick Start :
-jan lupa cofig env :}
-```bash
+> jan lupa cofig env :}
+
+``` bash
 composer install && composer update
-npm run dev
+cp .env.example .env
 php artisan migrate
+php artisan key:generate
 ```
+install npm :
+``` bash
+npm install && npm run dev
+```
+
 ## Tech Stack :
 - Laravel 11
 - TailwindCss
