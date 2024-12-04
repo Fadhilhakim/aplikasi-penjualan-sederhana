@@ -3,6 +3,7 @@
 ## Quick Start :
 jan lupa cofig env :}
 ```bash
+composer install && composer update
 npm run dev
 php artisan migrate
 ```
