@@ -1,6 +1,6 @@
 # Aplikasi Penjualan Sederhana
 
-## Quick Start:
+## Quick Start :
 ```bash
 npm run dev
 php artisan migrate
@@ -10,6 +10,8 @@ php artisan migrate
 - Laravel 11
 - TailwindCss
 - Alpine Js
+
+## Preview :
   
 ![dashboard](https://github.com/user-attachments/assets/3532a054-1333-4626-a781-26a068ae71a4)
 ![Thumbnail 1](https://github.com/user-attachments/assets/b1b6659c-cce8-4b33-a921-4c08c5369e37)
