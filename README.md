@@ -1,11 +1,11 @@
 # Aplikasi Penjualan Sederhana
 
 ## Quick Start :
+jan lupa cofig env :}
 ```bash
 npm run dev
 php artisan migrate
 ```
-
 ## Tech Stack :
 - Laravel 11
 - TailwindCss
