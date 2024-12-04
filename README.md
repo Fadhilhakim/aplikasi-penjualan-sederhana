@@ -9,7 +9,7 @@ cp .env.example .env
 php artisan migrate
 php artisan key:generate
 ```
-install & npm :
+install & run npm :
 ``` bash
 npm install && npm run dev
 ```
