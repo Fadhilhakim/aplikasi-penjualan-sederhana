@@ -45,6 +45,38 @@ npm install && npm run dev
 > - **Foreign Key:** `sales.product_id` → `products.id`
 > - **Aksi Cascade:** Jika data di tabel `products` dihapus, maka data terkait di tabel `sales` juga akan dihapus.
 
+## Contoh Data Untuk Database :
+- Tabel `product` :
+  ``` sql
+  INSERT INTO products (name, price, stock, created_at, updated_at) VALUES
+    ('Apple iPhone 14', 999.99, 50, NOW(), NOW()),
+    ('Samsung Galaxy S23', 799.99, 70, NOW(), NOW()),
+    ('Sony WH-1000XM5 Headphones', 399.99, 30, NOW(), NOW()),
+    ('Dell XPS 13 Laptop', 1199.99, 20, NOW(), NOW()),
+    ('Nike Air Max 270', 150.00, 100, NOW(), NOW()),
+    ('Adidas Ultraboost', 180.00, 90, NOW(), NOW()),
+    ('Gucci GG Marmont Bag', 2500.00, 15, NOW(), NOW()),
+    ('Rolex Submariner Watch', 8000.00, 10, NOW(), NOW()),
+    ('Tesla Model 3', 35000.00, 5, NOW(), NOW()),
+    ('Amazon Echo Dot', 49.99, 200, NOW(), NOW());
+  ```
+  
+- Tabel `sales` :
+  ``` sql
+  INSERT INTO sales (product_id, quantity, created_at, updated_at) VALUES
+    (1, 2, NOW(), NOW()), -- 2 unit Apple iPhone 14
+    (2, 3, NOW(), NOW()), -- 3 unit Samsung Galaxy S23
+    (3, 1, NOW(), NOW()), -- 1 unit Sony WH-1000XM5
+    (4, 1, NOW(), NOW()), -- 1 unit Dell XPS 13
+    (5, 5, NOW(), NOW()), -- 5 unit Nike Air Max 270
+    (6, 4, NOW(), NOW()), -- 4 unit Adidas Ultraboost
+    (7, 1, NOW(), NOW()), -- 1 unit Gucci GG Marmont Bag
+    (8, 1, NOW(), NOW()), -- 1 unit Rolex Submariner Watch
+    (9, 1, NOW(), NOW()), -- 1 unit Tesla Model 3
+    (10, 10, NOW(), NOW()); -- 10 unit Amazon Echo Dot
+
+  ```
+---
 ## Tech Stack :
 - Laravel 11
 - TailwindCss 
