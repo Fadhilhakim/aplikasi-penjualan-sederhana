@@ -84,7 +84,7 @@ npm install && npm run dev
 
 ## Preview :
   
-![dashboard](https://github.com/user-attachments/assets/3532a054-1333-4626-a781-26a068ae71a4)
-![Thumbnail 1](https://github.com/user-attachments/assets/b1b6659c-cce8-4b33-a921-4c08c5369e37)
-![Thumbnail 2](https://github.com/user-attachments/assets/96bfc8d3-ec15-4b11-b3a8-c974fc718e68)
-![Thumbnail 3](https://github.com/user-attachments/assets/471d39bb-eafc-4700-adcd-0319d53264ce)
+![Dashboard](https://github.com/user-attachments/assets/f4e95c7d-a416-4415-a3ed-e25203c12244)
+![Penjualan](https://github.com/user-attachments/assets/0ce7c743-acd0-4487-b497-52fb37bb468f)
+![Produk](https://github.com/user-attachments/assets/86460601-6c7d-49b3-a9ff-09cba2de9500)
+
