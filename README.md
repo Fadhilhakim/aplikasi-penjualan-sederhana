@@ -2,6 +2,8 @@
 
 ## Quick Start :
 > jan lupa cofig env :}
+> sama jan lupa buat database baru : "aplikasi-penjualan-sederhana"
+> MySQL ver: 5.7.33
 
 ``` bash
 composer install && composer update
@@ -14,6 +16,34 @@ install & run npm :
 npm install && npm run dev
 ```
 > selalu npm run dev setiap kali membuka project
+
+## Struktur Tabel Database
+
+### Tabel: `products`
+
+| Nama Kolom   | Tipe Data       | Panjang/Batasan | Keterangan                      |
+|--------------|-----------------|-----------------|----------------------------------|
+| `id`         | BIGINT          | Primary Key     | ID unik untuk produk            |
+| `name`       | VARCHAR(100)    | 100 karakter    | Nama produk                     |
+| `price`      | DECIMAL(10, 2)  | 10 digit total  | Harga produk (2 digit desimal)  |
+| `stock`      | INTEGER         | -               | Jumlah stok                     |
+| `created_at` | TIMESTAMP       | -               | Waktu data dibuat               |
+| `updated_at` | TIMESTAMP       | -               | Waktu data diperbarui           |
+
+
+### Tabel: `sales`
+
+| Nama Kolom   | Tipe Data       | Panjang/Batasan | Keterangan                                |
+|--------------|-----------------|-----------------|------------------------------------------|
+| `id`         | BIGINT          | Primary Key     | ID unik untuk transaksi penjualan         |
+| `product_id` | BIGINT          | Foreign Key     | Referensi ke kolom `id` pada tabel `products` |
+| `quantity`   | INTEGER         | -               | Jumlah produk yang terjual                |
+| `created_at` | TIMESTAMP       | -               | Waktu data dibuat                         |
+| `updated_at` | TIMESTAMP       | -               | Waktu data diperbarui                     |
+
+> ### Relasi Antar Tabel
+> - **Foreign Key:** `sales.product_id` → `products.id`
+> - **Aksi Cascade:** Jika data di tabel `products` dihapus, maka data terkait di tabel `sales` juga akan dihapus.
 
 ## Tech Stack :
 - Laravel 11
