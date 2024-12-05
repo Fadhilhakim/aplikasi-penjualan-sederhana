@@ -31,7 +31,7 @@
         <form class="mx-auto space-y-4 xl:flex w-full hidden" action="/product/store" method="POST">
             @csrf
 
-            <table class="w-full">
+            <table class="w-full ">
                 <tr>
                     <td>
                         <!-- Nama Produk -->

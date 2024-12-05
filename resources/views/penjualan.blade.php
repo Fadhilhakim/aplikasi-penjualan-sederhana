@@ -1,4 +1,4 @@
-<div class="bg-gray-200 w-full h-full">
+<div class="bg-gray-200 w-full h-full ">
     <x-layout>
         <h1 class="text-center text-4xl">Menu Penjualan</h1>
         <div class="p-4">
