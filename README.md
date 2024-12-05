@@ -1,9 +1,9 @@
 # Aplikasi Penjualan Sederhana
 
 ## Quick Start :
-> jan lupa cofig env :}
-> sama jan lupa buat database baru : "aplikasi-penjualan-sederhana"
-> MySQL ver: 5.7.33
+> - jan lupa cofig env :}
+> - sama jan lupa buat database baru : "aplikasi-penjualan-sederhana"
+> - MySQL ver: 5.7.33
 
 ``` bash
 composer install && composer update
