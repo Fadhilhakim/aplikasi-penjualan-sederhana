@@ -85,6 +85,8 @@ npm install && npm run dev
 ## Preview :
   
 ![Dashboard](https://github.com/user-attachments/assets/f4e95c7d-a416-4415-a3ed-e25203c12244)
-![Penjualan](https://github.com/user-attachments/assets/0ce7c743-acd0-4487-b497-52fb37bb468f)
+
+![Penjualan](https://github.com/user-attachments/assets/1ae05df0-4d72-4fa7-83f8-5fa28b42547b)
+
 ![Produk](https://github.com/user-attachments/assets/86460601-6c7d-49b3-a9ff-09cba2de9500)
 
