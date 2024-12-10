@@ -18,10 +18,11 @@
 <body class="font-sans antialiased light:bg-gray-200 light:text-gray900">
     <div>
 
-
+        
+        <div x-data="{ open: false }">
         <!-- Tombol Toggle -->
-        <button @click="open = !open" aria-controls="default-sidebar" type="button"
-            class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+        <button @click="open = !open" aria-expanded="open" aria-controls="default-sidebar" type="button"
+            class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
             <span class="sr-only">Open sidebar</span>
             <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg">
@@ -31,16 +32,18 @@
             </svg>
         </button>
 
-        <div x-data="{ open: false }">
             <!-- Sidebar -->
-            <aside x-show="open" x-transition:enter="transform transition-transform ease-in-out duration-300"
-                x-transition:enter-start="-translate-x-full" x-transition:enter-end="translate-x-0"
+            <aside x-show="open" 
+                x-transition:enter="transform transition-transform ease-in-out duration-300"
+                x-transition:enter-start="-translate-x-full" 
+                x-transition:enter-end="translate-x-0"
                 x-transition:leave="transform transition-transform ease-in-out duration-300"
-                x-transition:leave-start="translate-x-0" x-transition:leave-end="-translate-x-full" id="default-sidebar"
-                class="fixed top-0 left-0 z-40 w-64 h-screen " aria-label="Sidebar" @click="open = !open">
-                <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+                x-transition:leave-start="translate-x-0" 
+                x-transition:leave-end="-translate-x-full" id="default-sidebar"
+                class="fixed top-0 left-0 z-40 w-64 h-screen " aria-label="Sidebar">
+                <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50">
                     <button @click="open = !open" aria-controls="default-sidebar" type="button"
-                        class="inline-flex items-center p-2 mt-2 mb-2 ms-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+                        class="inline-flex items-center p-2 mt-2 mb-2 ms-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
                         <span class="sr-only">Open sidebar</span>
                         <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
@@ -52,8 +55,8 @@
                     <ul class="space-y-2 font-medium">
                         <li>
                             <a href="/"
-                                class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                                <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
+                                <svg class="w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900"
                                     aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                     viewBox="0 0 22 21">
                                     <path
@@ -65,8 +68,8 @@
                             </a>
                         </li>
                         <a href="/penjualan"
-                            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                            <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                            class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
+                            <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900"
                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                 viewBox="0 0 20 18">
                                 <path
@@ -77,8 +80,8 @@
                         </li>
                         <li>
                             <a href="/product"
-                                class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                                <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
+                                <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900"
                                     aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                     viewBox="0 0 18 20">
                                     <path
@@ -87,18 +90,21 @@
                                 <span class="flex-1 ms-3 whitespace-nowrap">Produk</span>
                             </a>
                         </li>
+                        <li>
+                            @include('layouts.navigation')
+                        </li>
 
                     </ul>
                 </div>
             </aside>
         </div>
         <aside id="default-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen hidden md:block" aria-label="Sidebar">
-            <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+            <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50">
                 <ul class="space-y-2 font-medium">
                     <li>
                         <a href="/"
-                            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                            <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                            class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
+                            <svg class="w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900"
                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                 viewBox="0 0 22 21">
                                 <path
@@ -110,8 +116,8 @@
                         </a>
                     </li>
                     <a href="/penjualan"
-                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                        <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                        class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
+                        <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900"
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 20 18">
                             <path
@@ -122,8 +128,8 @@
                     </li>
                     <li>
                         <a href="/product"
-                            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                            <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                            class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
+                            <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900"
                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                 viewBox="0 0 18 20">
                                 <path
@@ -131,6 +137,9 @@
                             </svg>
                             <span class="flex-1 ms-3 whitespace-nowrap">Produk</span>
                         </a>
+                    </li>
+                    <li>
+                        @include('layouts.navigation')
                     </li>
 
                 </ul>

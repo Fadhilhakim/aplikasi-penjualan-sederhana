@@ -1,25 +1,36 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Sales;
 use App\Http\Controllers\Products;
 
-
 Route::get('/', function () {
     $prods = Product::with('sales')->get();
     return view('welcome', compact('prods'));
-});
-Route::get('/product', function () {
-    return view('produk', ['sales' => Product::all()]);
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/dashboard', function () {
+    return view('welcome');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/product/search', [Products::class, 'search']);
+Route::get('/product', function () {
+    return view('produk', ['sales' => Product::all()]);
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/product/search', [Products::class, 'search'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/product/create', function () {
     return view('product-create');
-});
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::post('/product/store', function (Request $request) {
     // Validasi input
@@ -34,20 +45,20 @@ Route::post('/product/store', function (Request $request) {
 
     // Redirect ke halaman lain atau tampilkan pesan sukses
     return redirect('/product')->with('success', 'Produk berhasil ditambahkan!');
-});
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::delete('/product/{id}', function ($id) {
     $product = Product::findOrFail($id); // Cari data berdasarkan ID
     $product->delete(); // Hapus data
     return redirect('/product')->with('success', 'Produk berhasil dihapus!');
-});
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 
 
 
 Route::get('/penjualan', function () {
     return view('penjualan', ['products' => Product::all()]);
-});
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::post('/penjualan', function (Request $request) {
     $validated = $request->validate([
@@ -72,4 +83,6 @@ Route::post('/penjualan', function (Request $request) {
     ]);
 
     return back()->with('success', 'Penjualan berhasil.');
-});
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+require __DIR__.'/auth.php';
