@@ -5,12 +5,14 @@
     <meta charset="utf-8 ">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>POS</title>
+    <title>{{ config('app.name', 'Aplikasi Penjualan Sederhana') }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <link rel="icon" href="{{ asset('favicon.ico') }}">
 
     @vite('resources/css/app.css')
 </head>
