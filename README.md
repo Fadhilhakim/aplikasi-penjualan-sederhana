@@ -79,15 +79,19 @@ npm install && npm run dev
 ---
 ## Tech Stack :
 - Laravel 11
+- Breeze
 - TailwindCss 
 - Alpine Js
 
 ## Preview :
-  
-![Dashboard](https://github.com/user-attachments/assets/f4e95c7d-a416-4415-a3ed-e25203c12244)
 
-![Penjualan](https://github.com/user-attachments/assets/1ae05df0-4d72-4fa7-83f8-5fa28b42547b)
+![Login](https://github.com/user-attachments/assets/595a46fa-c47f-4543-9ab0-fd65b7ce147c)
 
-Update search & add
-![Produk](https://github.com/user-attachments/assets/86460601-6c7d-49b3-a9ff-09cba2de9500)
+![Dashboard](https://github.com/user-attachments/assets/e9d8591d-9e5b-46d3-8db1-4064af97b235)
+
+![Penjualan](https://github.com/user-attachments/assets/f35eb948-58fb-46c0-94fb-631363da458a)
+
+![Produk](https://github.com/user-attachments/assets/0f62cea4-12ec-45b3-9825-82948f8d94d9)
+
+![Profile](https://github.com/user-attachments/assets/4f9c1c7d-9503-4512-b21d-9c1174086ec0)
 
