@@ -1,5 +1,12 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-4xl text-gray-800 leading-tight text-center">
+            {{ __('Register Admin') }}
+        </h2>
+    </x-slot>
+
+
+    <form method="POST" action="{{ route('register') }}" class="max-w-sm mx-auto">
         @csrf
 
         <!-- Name -->
@@ -40,13 +47,9 @@
         </div>
 
         <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
             <x-primary-button class="ms-4">
                 {{ __('Register') }}
             </x-primary-button>
         </div>
     </form>
-</x-guest-layout>
+</x-app-layout>

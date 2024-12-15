@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-bs-theme-mode="dark">
 
 <head>
     <meta charset="utf-8 ">
@@ -10,10 +10,10 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
+    
     <link rel="icon" href="{{ asset('favicon.ico') }}">
-
+    
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @vite('resources/css/app.css')
 </head>
 
@@ -54,6 +54,9 @@
                             </path>
                         </svg>
                     </button>
+
+                    
+                    
                     <ul class="space-y-2 font-medium">
                         <li>
                             <a href="/"
@@ -93,6 +96,16 @@
                             </a>
                         </li>
                         <li>
+                            <a href="/history"
+                                class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
+
+                                <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                    <path fill-rule="evenodd" d="M9 2a1 1 0 0 0-1 1H6a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-2a1 1 0 0 0-1-1H9Zm1 2h4v2h1a1 1 0 1 1 0 2H9a1 1 0 0 1 0-2h1V4Zm5.707 8.707a1 1 0 0 0-1.414-1.414L11 14.586l-1.293-1.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4Z" clip-rule="evenodd"/>
+                                  </svg>
+                                <span class="flex-1 ms-3 whitespace-nowrap">History</span>
+                            </a>
+                        </li>
+                        <li>
                             @include('layouts.navigation')
                         </li>
 
@@ -101,6 +114,11 @@
             </aside>
         </div>
         <aside id="default-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen hidden md:block" aria-label="Sidebar">
+            <div class="mt-20 sm:pt-0">
+                <a href="/">
+                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                </a>
+            </div>
             <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50">
                 <ul class="space-y-2 font-medium">
                     <li>
@@ -138,6 +156,16 @@
                                     d="M17 5.923A1 1 0 0 0 16 5h-3V4a4 4 0 1 0-8 0v1H2a1 1 0 0 0-1 .923L.086 17.846A2 2 0 0 0 2.08 20h13.84a2 2 0 0 0 1.994-2.153L17 5.923ZM7 9a1 1 0 0 1-2 0V7h2v2Zm0-5a2 2 0 1 1 4 0v1H7V4Zm6 5a1 1 0 1 1-2 0V7h2v2Z" />
                             </svg>
                             <span class="flex-1 ms-3 whitespace-nowrap">Produk</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/history"
+                            class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
+                            <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path fill-rule="evenodd" d="M9 2a1 1 0 0 0-1 1H6a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-2a1 1 0 0 0-1-1H9Zm1 2h4v2h1a1 1 0 1 1 0 2H9a1 1 0 0 1 0-2h1V4Zm5.707 8.707a1 1 0 0 0-1.414-1.414L11 14.586l-1.293-1.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4Z" clip-rule="evenodd"/>
+                              </svg>
+                              
+                            <span class="flex-1 ms-3 whitespace-nowrap">History</span>
                         </a>
                     </li>
                     <li>
