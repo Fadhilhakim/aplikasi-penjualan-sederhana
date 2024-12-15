@@ -41,10 +41,6 @@ npm install && npm run dev
 | `created_at` | TIMESTAMP       | -               | Waktu data dibuat                         |
 | `updated_at` | TIMESTAMP       | -               | Waktu data diperbarui                     |
 
-> ### Relasi Antar Tabel
-> - **Foreign Key:** `sales.product_id` → `products.id`
-> - **Aksi Cascade:** Jika data di tabel `products` dihapus, maka data terkait di tabel `sales` juga akan dihapus.
-
 ## Contoh Data Untuk Database :
 - Tabel `product` :
   ``` sql
