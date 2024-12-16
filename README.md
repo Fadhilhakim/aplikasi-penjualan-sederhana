@@ -18,6 +18,10 @@ npm install && npm run dev
 ```
 > selalu npm run dev setiap kali membuka project
 
+## User Side App :
+<a href="https://github.com/Fadhilhakim/aplikasi-penjualan-sederhana_userSide.git">https://github.com/Fadhilhakim/aplikasi-penjualan-sederhana_userSide.git<a>
+> still in develop
+
 ## Tech Stack :
 - Laravel 11
 - Breeze
