@@ -28,11 +28,13 @@ npm install && npm run dev
 
 ![Login](https://github.com/user-attachments/assets/595a46fa-c47f-4543-9ab0-fd65b7ce147c)
 
-![Dashboard](https://github.com/user-attachments/assets/e9d8591d-9e5b-46d3-8db1-4064af97b235)
+![Dashboard](https://github.com/user-attachments/assets/27b07172-d541-4bcd-84b0-c7f90d92d81c)
 
-![Penjualan](https://github.com/user-attachments/assets/f35eb948-58fb-46c0-94fb-631363da458a)
+![invoice Penjualan](https://github.com/user-attachments/assets/0e740508-6d45-4cda-8fa8-22b0975751d1)
 
 ![Produk](https://github.com/user-attachments/assets/0f62cea4-12ec-45b3-9825-82948f8d94d9)
+
+![History](https://github.com/user-attachments/assets/56d488d2-de8a-4bf8-adc4-7a1742c0a752)
 
 ![Profile](https://github.com/user-attachments/assets/4f9c1c7d-9503-4512-b21d-9c1174086ec0)
 
