@@ -32,9 +32,8 @@ npm install && npm run dev
 
 ![invoice Penjualan](https://github.com/user-attachments/assets/0e740508-6d45-4cda-8fa8-22b0975751d1)
 
-![Produk](https://github.com/user-attachments/assets/0f62cea4-12ec-45b3-9825-82948f8d94d9)
+![image](https://github.com/user-attachments/assets/eed16e6b-0020-4727-9e6e-40fcaff429aa)
 
 ![History](https://github.com/user-attachments/assets/56d488d2-de8a-4bf8-adc4-7a1742c0a752)
 
-![Profile](https://github.com/user-attachments/assets/4f9c1c7d-9503-4512-b21d-9c1174086ec0)
 
