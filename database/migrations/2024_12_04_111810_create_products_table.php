@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name', 100);
             $table->decimal('price', 10, 2); 
             $table->integer('stock');
+            $table->integer('sold_out')->default(0);
             $table->string('image_path')->nullable();
             $table->enum('discount', ['Y', 'N'])->default('N');
             $table->decimal('discount_value', 5, 2)->default(0);

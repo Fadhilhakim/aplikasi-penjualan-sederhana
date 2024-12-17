@@ -17,7 +17,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Route::get('/product/search', [Products::class, 'search']);
 
     Route::get('/', function () {
-        $prods = Product::with('sales')->get();
+        $prods = Product::all();
         $displays = DashboardDisplay::all();
 
         return view('welcome', [
@@ -27,7 +27,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('home');
 
     Route::get('/dashboard', function () {
-        $prods = Product::with('sales')->get();
+        $prods = Product::all();
         $displays = DashboardDisplay::all();
 
         return view('welcome', [

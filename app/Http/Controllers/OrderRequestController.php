@@ -2,21 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\OrderRequest;
 use App\Models\Product;
-use App\Models\OrderHistory;
+use Illuminate\Support\Facades\DB;
 class OrderRequestController extends Controller
 {   
+
+    
     public function getOrderRequests() {
 
         return $order_requests = OrderRequest::with(['user', 'product'])
         ->where(function ($query) {
             $query->where('status', 'LUNAS')
-                ->orWhere('status', 'BELUM BAYAR');
+                ->orWhere('status', 'BELUM BAYAR')
+                ->orWhere('status', 'MENUNGGU KONFIRMASI');
         })->get()
             ->groupBy((function ($order) {
-                    return $order->user_id . '-' . $order->status; // Gabungkan user_id dan status sebagai key grup
+                    return $order->user_id . '-' . $order->status . '-'. $order->created_at; // Gabungkan user_id dan status sebagai key grup
                 })
             ) 
             ->map(function ($orders, $key) {
@@ -27,10 +29,25 @@ class OrderRequestController extends Controller
                 $status = $orders->first()->status;
                 $created_at = $orders->first()->created_at;
     
-                $totalPrice = $orders->sum(function ($order) {
-                    $price = intval($order->product->price);
-                    return $order->quantity * $price;
+                $ongkir = 10000; // Biaya pengiriman
+                $totalPrice = 0; // Inisialisasi total harga
+                
+    
+                $products_with_quantities = $orders->map(function ($order) use (&$totalPrice) {
+                    $price = intval($order->product->price); // Konversi harga ke integer
+                    $discount_percentage = $order->product->discount_value ?? 0; // Ambil discount percentage, default 0 jika tidak ada
+    
+                    // Hitung harga setelah diskon
+                    $discount_amount = ($discount_percentage / 100) * $price; // Hitung nilai diskon
+                    $final_price = $price - $discount_amount; // Harga setelah diskon
+    
+                    // Hitung total harga untuk produk ini
+                    return $totalPrice += $order->quantity * $final_price; // Total harga produk setelah diskon
+
                 });
+
+                $pajak = 1.1; // 11% dalam bentuk multiplier
+                $totalPrice = ($totalPrice * $pajak) + $ongkir;
     
                 return [
                     'user' => $user->name,
@@ -47,12 +64,10 @@ class OrderRequestController extends Controller
 
         return view('penjualan', [
             'order_requests' => $order_requests,
-            // dd($order_requests),
         ]);
     }
 
     public function orderViews($user, $date) {
-
         return $order_views = OrderRequest::with(['user', 'product'])
             ->whereHas('user', function ($query) use ($user) {
                 $query->where('name', $user); // Filter berdasarkan nama pengguna
@@ -66,35 +81,40 @@ class OrderRequestController extends Controller
                 // Pisahkan user_id, status, dan created_at
                 [$user_id, $status, $created_at] = explode('-', $key);
     
-                // Ambil user dan kalkulasi total harga
+                // Ambil user
                 $user = $orders->first()->user;
-                
+    
                 $ongkir = 10000; // Biaya pengiriman
-                $pajak = 1.1; // 11% dalam bentuk multiplier
-
-                $totalPrice = $orders->sum(function ($order) {
+                $totalPrice = 0; // Inisialisasi total harga
+    
+                // Membuat array produk dengan quantity dan menghitung total harga
+                $products_with_quantities = $orders->map(function ($order) use (&$totalPrice) {
                     $price = intval($order->product->price); // Konversi harga ke integer
-                    return $order->quantity * $price; // Total harga produk
-                });
-
-                // Tambahkan ongkir dan pajak
-                $totalPrice = ($totalPrice * $pajak) + $ongkir;
-
+                    $discount_percentage = $order->product->discount_value ?? 0; // Ambil discount percentage, default 0 jika tidak ada
     
-                // Ambil tanggal pertama (tanggal pesanan)
-                $dates = $orders->first()->created_at;
+                    // Hitung harga setelah diskon
+                    $discount_amount = ($discount_percentage / 100) * $price; // Hitung nilai diskon
+                    $final_price = $price - $discount_amount; // Harga setelah diskon
     
-                // Membuat array produk dengan quantity
-                $products_with_quantities = $orders->map(function ($order) {
+                    // Hitung total harga untuk produk ini
+                    $totalPrice += $order->quantity * $final_price; // Total harga produk setelah diskon
+    
                     return [
                         'product_id' => $order->product->id,
                         'name' => $order->product->name,
-                        'price' => $order->product->price,
-                        'discount' => $order->product->discount,
-                        'discount_value' => $order->product->discount_value,
+                        'price' => $final_price, // Harga setelah diskon
+                        'discount' => $discount_percentage, // Menyimpan persentase diskon
+                        'discount_value' => $discount_amount, // Menyimpan nilai diskon
                         'quantity' => $order->quantity,
                     ];
                 });
+    
+                // Tambahkan ongkir dan pajak
+                $pajak = 1.1; // 11% dalam bentuk multiplier
+                $totalPrice = ($totalPrice * $pajak) + $ongkir;
+    
+                // Ambil tanggal pertama (tanggal pesanan)
+                $dates = $orders->first()->created_at;
     
                 return [
                     'user' => $user->name,
@@ -122,36 +142,42 @@ class OrderRequestController extends Controller
     }
 
     public function storeOrderHistory($user, $date)
-    {
-        $order_views = $this->orderViews($user, $date);
-        try {
-            // foreach ($order_views as $key => $order) {
-            //     OrderHistory::create([
-            //         'user_name'=> $user,
-            //         'user_email'=> $order['email'],
-            //         'order_date'=> $order['date'],
-            //         'total_quantity'=> $order['total_quantity'],
-            //         'total_price'=> $order['total_price'],
-            //         'status'=> $order['status'],
-            //         'payment'=> $order['payment'],
-            //         'products_order' => json_encode($order['products_order']->toArray()),
-            //     ]);
-            // }   
+        {
+            try {
+                // Gunakan transaction untuk memastikan data konsisten
+                DB::transaction(function () use ($user, $date) {
+                    // Ambil semua order_requests berdasarkan user dan tanggal
+                    $orders = OrderRequest::whereHas('user', function ($query) use ($user) {
+                            $query->where('name', $user);
+                        })
+                        ->where('created_at', $date)
+                        ->get();
 
-            OrderRequest::whereHas('user', function ($query) use ($user) {
-                $query->where('name', $user); // Filter berdasarkan nama user
-            })->where('created_at', $date)->update(['status' => 'MENUNGGU KONFIRMASI']);
-           
-            // Kirim pesan sukses
-            return back()->with('success', 'Pesanan berhasil diproses dan dikirim ke customer.');
-        } catch (\Exception $e) {
-            // Tangani jika terjadi error
-            // return dd($order_views->toArray()); 
-            return view('penjualan')->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+                    // Perulangan setiap order untuk mengurangi stok product
+                    foreach ($orders as $order) {
+                        // Update status order_request
+                        $order->update(['status' => 'MENUNGGU KONFIRMASI']);
+
+                        // Kurangi stok pada tabel products
+                        $product = Product::find($order->product_id);
+
+                        if ($product) {
+                            // Manambah jumlah sold_out dan mengurangi stock
+                            if ($product->stock >= $order->quantity) {
+                                $product->stock -= $order->quantity; 
+                                $product->sold_out += $order->quantity;
+                                $product->save();
+                            } else {
+                                throw new \Exception("Stok tidak mencukupi untuk produk: {$product->name}");
+                            }
+                        }
+                    }
+                });
+
+                return redirect()->back()->with('success', 'Order berhasil dikirm!');
+            } catch (\Exception $e) {
+                return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            }
         }
-    }
 
-
-
-    
 }

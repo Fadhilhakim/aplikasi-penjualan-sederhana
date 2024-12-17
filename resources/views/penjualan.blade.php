@@ -177,38 +177,49 @@
                 </th>
               </tr>
             </thead>
-            @foreach ($order_requests as $userOrders)
-            <tbody>
-              <tr
-                class="border-g bg-white text-gray-500 dark:border-gray-700">
-                <th class="px-6 py-4 text-start">
-                  {{ $userOrders['user'] }}
-                </th>
-                <td class="px-6 py-4 text-center">
-                  {{ $userOrders['total_quantity'] }}x item
-                </td>
-                <td class="px-6 py-4 text-center">
-                  Rp. {{ number_format($userOrders['total_price'], 2) }},-
-                </td>
-                <td class="px-6 py-4 text-center">
-                  {{ $userOrders['date'] }}
-                </td>
-                <td class="px-6 py-4 text-center">
-                  @if ( $userOrders['status'] == 'LUNAS')
-                    <p class="text-extrabold text-green-800">{{ $userOrders['status'] }}</p>
-                    @else
-                    <p class="text-extrabold text-red-800">{{ $userOrders['status'] }}</p>
-                  @endif
-                </td>
-                <td class="px-6 py-4 text-center">
-                  <form action="{{ 'penjualan/lihat/'.$userOrders['user'].'/'. $userOrders['date']}}" method="GET" class="w-full bg-green-600 hover:bg-green-800 hover:underline">
-                    <button type="submit"
-                      class="p-2 text-center text-white">Lihat</button>
-                  </form>
-                </td>
-              </tr>
-            </tbody>
-            @endforeach
+            
+            @forelse ($order_requests as $userOrders)
+              <tbody>
+                <tr
+                  class="border-g bg-white text-gray-500 dark:border-gray-700">
+                  <th class="px-6 py-4 text-start">
+                    {{ $userOrders['user'] }}
+                  </th>
+                  <td class="px-6 py-4 text-center">
+                    {{ $userOrders['total_quantity'] }}x item
+                  </td>
+                  <td class="px-6 py-4 text-center">
+                    Rp. {{ number_format($userOrders['total_price'], 2) }},-
+                  </td>
+                  <td class="px-6 py-4 text-center">
+                    {{ $userOrders['date'] }}
+                  </td>
+                  <td class="px-6 py-4 text-center">
+                    @if ( $userOrders['status'] == 'LUNAS')
+                      <p class="text-extrabold text-green-800">{{ $userOrders['status'] }}</p>
+                      @else
+                      <p class="text-extrabold text-red-800">{{ $userOrders['status'] }}</p>
+                    @endif
+                  </td>
+                  <td class="px-6 py-4 text-center">
+                    <form action="{{ 'penjualan/lihat/'.$userOrders['user'].'/'. $userOrders['date']}}" method="GET" class="w-full bg-green-600 hover:bg-green-800 hover:underline">
+                      @csrf
+                      <button type="submit"
+                        class="p-2 text-center text-white">Lihat</button>
+                    </form>
+                  </td>
+                </tr>
+              </tbody>
+            @empty  
+              <tbody class="col-span-6">
+                <tr
+                  class="border-g col-span-6 bg-white text-gray-500 dark:border-gray-700">
+                  <th class="px-6 py-4 font-extrabold text-3xl text-center text-red-500 " colspan="6">
+                    <h1>TIDAK ADA ORDERAN );</h1>
+                  </th>
+                </tr>
+              </tbody>
+            @endforelse
 
           </table>
         </div>

@@ -9,7 +9,7 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'price', 'stock', 'image_path', 'discount', 'discount_value', 'description'];
+    protected $fillable = ['name', 'price', 'stock', 'sold_out', 'image_path', 'discount', 'discount_value', 'description'];
 
 
     // Relasi ke tabel sales
