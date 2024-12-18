@@ -1,5 +1,9 @@
 # Aplikasi Penjualan Sederhana
 
+Project "aplikasi-penjualan-sederhana". System ini dirancang untuk mengelola produk, keranjang belanja, pesanan, dan riwayat pesanan untuk platform e-commerce.
+
+---
+
 ## Quick Start :
 > - jan lupa cofig env :}
 > - sama jan lupa buat database baru : "aplikasi-penjualan-sederhana"
@@ -9,6 +13,7 @@
 composer install && composer update
 cp .env.example .env
 php artisan migrate
+php artisan db:seed
 php artisan key:generate
 ```
 install & run npm :
@@ -17,66 +22,10 @@ npm install && npm run dev
 ```
 > selalu npm run dev setiap kali membuka project
 
-## Struktur Tabel Database
+## User Side App :
+<a href="https://github.com/Fadhilhakim/aplikasi-penjualan-sederhana_userSide.git">https://github.com/Fadhilhakim/aplikasi-penjualan-sederhana_userSide.git<a>
+> still in develop
 
-### Tabel: `products`
-
-| Nama Kolom   | Tipe Data       | Panjang/Batasan | Keterangan                      |
-|--------------|-----------------|-----------------|----------------------------------|
-| `id`         | BIGINT          | Primary Key     | ID unik untuk produk            |
-| `name`       | VARCHAR(100)    | 100 karakter    | Nama produk                     |
-| `price`      | DECIMAL(10, 2)  | 10 digit total  | Harga produk (2 digit desimal)  |
-| `stock`      | INTEGER         | -               | Jumlah stok                     |
-| `created_at` | TIMESTAMP       | -               | Waktu data dibuat               |
-| `updated_at` | TIMESTAMP       | -               | Waktu data diperbarui           |
-
-
-### Tabel: `sales`
-
-| Nama Kolom   | Tipe Data       | Panjang/Batasan | Keterangan                                |
-|--------------|-----------------|-----------------|------------------------------------------|
-| `id`         | BIGINT          | Primary Key     | ID unik untuk transaksi penjualan         |
-| `product_id` | BIGINT          | Foreign Key     | Referensi ke kolom `id` pada tabel `products` |
-| `quantity`   | INTEGER         | -               | Jumlah produk yang terjual                |
-| `created_at` | TIMESTAMP       | -               | Waktu data dibuat                         |
-| `updated_at` | TIMESTAMP       | -               | Waktu data diperbarui                     |
-
-> ### Relasi Antar Tabel
-> - **Foreign Key:** `sales.product_id` → `products.id`
-> - **Aksi Cascade:** Jika data di tabel `products` dihapus, maka data terkait di tabel `sales` juga akan dihapus.
-
-## Contoh Data Untuk Database :
-- Tabel `product` :
-  ``` sql
-  INSERT INTO products (name, price, stock, created_at, updated_at) VALUES
-    ('Apple iPhone 14', 999.99, 50, NOW(), NOW()),
-    ('Samsung Galaxy S23', 799.99, 70, NOW(), NOW()),
-    ('Sony WH-1000XM5 Headphones', 399.99, 30, NOW(), NOW()),
-    ('Dell XPS 13 Laptop', 1199.99, 20, NOW(), NOW()),
-    ('Nike Air Max 270', 150.00, 100, NOW(), NOW()),
-    ('Adidas Ultraboost', 180.00, 90, NOW(), NOW()),
-    ('Gucci GG Marmont Bag', 2500.00, 15, NOW(), NOW()),
-    ('Rolex Submariner Watch', 8000.00, 10, NOW(), NOW()),
-    ('Tesla Model 3', 35000.00, 5, NOW(), NOW()),
-    ('Amazon Echo Dot', 49.99, 200, NOW(), NOW());
-  ```
-  
-- Tabel `sales` :
-  ``` sql
-  INSERT INTO sales (product_id, quantity, created_at, updated_at) VALUES
-    (1, 2, NOW(), NOW()), -- 2 unit Apple iPhone 14
-    (2, 3, NOW(), NOW()), -- 3 unit Samsung Galaxy S23
-    (3, 1, NOW(), NOW()), -- 1 unit Sony WH-1000XM5
-    (4, 1, NOW(), NOW()), -- 1 unit Dell XPS 13
-    (5, 5, NOW(), NOW()), -- 5 unit Nike Air Max 270
-    (6, 4, NOW(), NOW()), -- 4 unit Adidas Ultraboost
-    (7, 1, NOW(), NOW()), -- 1 unit Gucci GG Marmont Bag
-    (8, 1, NOW(), NOW()), -- 1 unit Rolex Submariner Watch
-    (9, 1, NOW(), NOW()), -- 1 unit Tesla Model 3
-    (10, 10, NOW(), NOW()); -- 10 unit Amazon Echo Dot
-
-  ```
----
 ## Tech Stack :
 - Laravel 11
 - Breeze
@@ -87,11 +36,95 @@ npm install && npm run dev
 
 ![Login](https://github.com/user-attachments/assets/595a46fa-c47f-4543-9ab0-fd65b7ce147c)
 
-![Dashboard](https://github.com/user-attachments/assets/e9d8591d-9e5b-46d3-8db1-4064af97b235)
+![Dashboard](https://github.com/user-attachments/assets/27b07172-d541-4bcd-84b0-c7f90d92d81c)
 
-![Penjualan](https://github.com/user-attachments/assets/f35eb948-58fb-46c0-94fb-631363da458a)
+![invoice Penjualan](https://github.com/user-attachments/assets/0e740508-6d45-4cda-8fa8-22b0975751d1)
 
-![Produk](https://github.com/user-attachments/assets/0f62cea4-12ec-45b3-9825-82948f8d94d9)
+![image](https://github.com/user-attachments/assets/eed16e6b-0020-4727-9e6e-40fcaff429aa)
 
-![Profile](https://github.com/user-attachments/assets/4f9c1c7d-9503-4512-b21d-9c1174086ec0)
+![History](https://github.com/user-attachments/assets/56d488d2-de8a-4bf8-adc4-7a1742c0a752)
+
+
+## Struktur Tabel :
+
+# README untuk Tabel Database
+
+Repositori ini berisi definisi skema untuk tabel-tabel database yang digunakan dalam proyek "aplikasi-penjualan-sederhana". Database ini dirancang untuk mengelola produk, keranjang belanja, pesanan, dan riwayat pesanan untuk platform e-commerce.
+
+## Struktur Tabel
+
+### 1. **Tabel products**
+
+| Nama Kolom      | Tipe Data           |
+|-----------------|---------------------|
+| id              | BIGINT(20) UNSIGNED |
+| name            | VARCHAR(100)        |
+| price           | DECIMAL(10,2)       |
+| stock           | INT(11)             |
+| sold_out        | INT(11)             |
+| image_path      | VARCHAR(255)        |
+| discount        | ENUM('Y', 'N')      |
+| discount_value  | DECIMAL(5,2)        |
+| description     | TEXT                |
+| created_at      | TIMESTAMP           |
+| updated_at      | TIMESTAMP           |
+
+### 2. **Tabel shopping_carts**
+
+| Nama Kolom      | Tipe Data           |
+|-----------------|---------------------|
+| id              | BIGINT(20) UNSIGNED |
+| user_id         | BIGINT(20) UNSIGNED |
+| product_id      | BIGINT(20) UNSIGNED |
+| quantity        | INT(11)             |
+| created_at      | TIMESTAMP           |
+| updated_at      | TIMESTAMP           |
+
+Keterbatasan Kunci Asing:
+- `product_id` merujuk ke `products(id)`.
+- `user_id` merujuk ke `users(id)`.
+
+### 3. **Tabel order_requests**
+
+| Nama Kolom      | Tipe Data           |
+|-----------------|---------------------|
+| id              | BIGINT(20) UNSIGNED |
+| user_id         | BIGINT(20) UNSIGNED |
+| product_id      | BIGINT(20) UNSIGNED |
+| quantity        | INT(11)             |
+| payment         | VARCHAR(255)        |
+| address         | VARCHAR(255)        |
+| status          | ENUM('LUNAS', 'BELUM BAYAR', 'MENUNGGU KONFIRMASI', 'DITERIMA USER') |
+| created_at      | TIMESTAMP           |
+| updated_at      | TIMESTAMP           |
+
+Keterbatasan Kunci Asing:
+- `product_id` merujuk ke `products(id)`.
+- `user_id` merujuk ke `users(id)`.
+
+### 4. **Tabel order_history**
+
+| Nama Kolom      | Tipe Data           |
+|-----------------|---------------------|
+| id              | BIGINT(20) UNSIGNED |
+| user_name       | VARCHAR(255)        |
+| user_email      | VARCHAR(255)        |
+| order_date      | DATE                |
+| total_quantity  | INT(11)             |
+| total_price     | INT(11)             |
+| status          | VARCHAR(255)        |
+| payment         | VARCHAR(255)        |
+| products_order  | JSON                |
+| created_at      | TIMESTAMP           |
+| updated_at      | TIMESTAMP           |
+
+---
+
+## Hubungan antar Tabel
+- **products**: Setiap produk dapat menjadi bagian dari beberapa pesanan dan item keranjang belanja.
+- **shopping_carts**: Setiap entri keranjang belanja menghubungkan pengguna dengan produk dan mencatat jumlah produk.
+- **order_requests**: Setiap permintaan pesanan menghubungkan pengguna dengan produk, serta melacak status pembayaran dan pesanan.
+- **order_history**: Tabel ini mencatat pesanan yang sudah selesai, menyimpan detail total pesanan, termasuk produk, jumlah, dan harga dalam format JSON.
+
+---
 
