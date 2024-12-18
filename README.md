@@ -1,5 +1,9 @@
 # Aplikasi Penjualan Sederhana
 
+Project "aplikasi-penjualan-sederhana". System ini dirancang untuk mengelola produk, keranjang belanja, pesanan, dan riwayat pesanan untuk platform e-commerce.
+
+---
+
 ## Quick Start :
 > - jan lupa cofig env :}
 > - sama jan lupa buat database baru : "aplikasi-penjualan-sederhana"
@@ -40,4 +44,87 @@ npm install && npm run dev
 
 ![History](https://github.com/user-attachments/assets/56d488d2-de8a-4bf8-adc4-7a1742c0a752)
 
+
+## Struktur Tabel :
+
+# README untuk Tabel Database
+
+Repositori ini berisi definisi skema untuk tabel-tabel database yang digunakan dalam proyek "aplikasi-penjualan-sederhana". Database ini dirancang untuk mengelola produk, keranjang belanja, pesanan, dan riwayat pesanan untuk platform e-commerce.
+
+## Struktur Tabel
+
+### 1. **Tabel products**
+
+| Nama Kolom      | Tipe Data           |
+|-----------------|---------------------|
+| id              | BIGINT(20) UNSIGNED |
+| name            | VARCHAR(100)        |
+| price           | DECIMAL(10,2)       |
+| stock           | INT(11)             |
+| sold_out        | INT(11)             |
+| image_path      | VARCHAR(255)        |
+| discount        | ENUM('Y', 'N')      |
+| discount_value  | DECIMAL(5,2)        |
+| description     | TEXT                |
+| created_at      | TIMESTAMP           |
+| updated_at      | TIMESTAMP           |
+
+### 2. **Tabel shopping_carts**
+
+| Nama Kolom      | Tipe Data           |
+|-----------------|---------------------|
+| id              | BIGINT(20) UNSIGNED |
+| user_id         | BIGINT(20) UNSIGNED |
+| product_id      | BIGINT(20) UNSIGNED |
+| quantity        | INT(11)             |
+| created_at      | TIMESTAMP           |
+| updated_at      | TIMESTAMP           |
+
+Keterbatasan Kunci Asing:
+- `product_id` merujuk ke `products(id)`.
+- `user_id` merujuk ke `users(id)`.
+
+### 3. **Tabel order_requests**
+
+| Nama Kolom      | Tipe Data           |
+|-----------------|---------------------|
+| id              | BIGINT(20) UNSIGNED |
+| user_id         | BIGINT(20) UNSIGNED |
+| product_id      | BIGINT(20) UNSIGNED |
+| quantity        | INT(11)             |
+| payment         | VARCHAR(255)        |
+| address         | VARCHAR(255)        |
+| status          | ENUM('LUNAS', 'BELUM BAYAR', 'MENUNGGU KONFIRMASI', 'DITERIMA USER') |
+| created_at      | TIMESTAMP           |
+| updated_at      | TIMESTAMP           |
+
+Keterbatasan Kunci Asing:
+- `product_id` merujuk ke `products(id)`.
+- `user_id` merujuk ke `users(id)`.
+
+### 4. **Tabel order_history**
+
+| Nama Kolom      | Tipe Data           |
+|-----------------|---------------------|
+| id              | BIGINT(20) UNSIGNED |
+| user_name       | VARCHAR(255)        |
+| user_email      | VARCHAR(255)        |
+| order_date      | DATE                |
+| total_quantity  | INT(11)             |
+| total_price     | INT(11)             |
+| status          | VARCHAR(255)        |
+| payment         | VARCHAR(255)        |
+| products_order  | JSON                |
+| created_at      | TIMESTAMP           |
+| updated_at      | TIMESTAMP           |
+
+---
+
+## Hubungan antar Tabel
+- **products**: Setiap produk dapat menjadi bagian dari beberapa pesanan dan item keranjang belanja.
+- **shopping_carts**: Setiap entri keranjang belanja menghubungkan pengguna dengan produk dan mencatat jumlah produk.
+- **order_requests**: Setiap permintaan pesanan menghubungkan pengguna dengan produk, serta melacak status pembayaran dan pesanan.
+- **order_history**: Tabel ini mencatat pesanan yang sudah selesai, menyimpan detail total pesanan, termasuk produk, jumlah, dan harga dalam format JSON.
+
+---
 
