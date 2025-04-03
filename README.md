@@ -45,12 +45,6 @@ npm install && npm run dev
 ![History](https://github.com/user-attachments/assets/56d488d2-de8a-4bf8-adc4-7a1742c0a752)
 
 
-## Struktur Tabel :
-
-# README untuk Tabel Database
-
-Repositori ini berisi definisi skema untuk tabel-tabel database yang digunakan dalam proyek "aplikasi-penjualan-sederhana". Database ini dirancang untuk mengelola produk, keranjang belanja, pesanan, dan riwayat pesanan untuk platform e-commerce.
-
 ## Struktur Tabel
 
 ### 1. **Tabel products**
